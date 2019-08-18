@@ -17,3 +17,4 @@ stock_quantity INT NOT NULL,
 PRIMARY KEY
     (items_id)
 );
+
