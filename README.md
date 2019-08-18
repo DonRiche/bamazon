@@ -1,1 +1,2 @@
 # bamazon
+Amazon-like storefront
