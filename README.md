@@ -20,4 +20,4 @@ The app will take in orders from customers and deplete stock from the store's in
 
 
 
-This video shows how you can interact with CLI app-<a href="vid/bamazonDemo.webm">DEMO<a>
+This video shows how you can interact with CLI app-<a href="https://drive.google.com/file/d/1Z8MtWc8F-ZCrqauL8mTZnJWfHYk8L_62/view">DEMO<a>
