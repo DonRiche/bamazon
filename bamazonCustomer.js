@@ -1,57 +1,34 @@
-var mysql = require("mysql");
-var inquirer = require("inquirer");
-//var databasePassword = require(".env");
+var mysql = require('mysql');
+var inquirer = require('inquirer');
+
+// Connection with mySQL DATABASE
 var connection = mysql.createConnection({
     host: "localhost",
-
-    // Your port; if not 3306
     port: 3306,
-
-    // Your username
     user: "root",
-
-    // Your password
     password: "Audrill@9",
     database: "bamazon_db"
-});
+})
 
 connection.connect(function (err) {
     if (err) throw err;
-    queryAllProducts();
-});
-console.log("----------------BAMAZON-------------------");
+    console.log("Connection is successful!");
 
-function queryAllProducts() {
-    var productsQuery = "SELECT * FROM products";
-    connection.query(productsQuery, function (err, res) {
-        if (err) throw err;
+
+    showTable();
+})
+
+// Function that gets information from db
+var showTable = function () {
+
+
+    connection.query("SELECT * FROM products", function (err, res) {
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].items_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + "|" + res[i].stock_quantity);
+            console.log(res[i].items_id + " || " + res[i].product_name + " || " + res[i].department_name + " || " + res[i].price + " || " + res[i].stock_quantity + "\n")
         }
-        console.log("----------------BAMAZON-------------------");
-        itemSearch();
 
-    });
+
+        askUser(res);
+    })
 }
 
-function itemSearch() {
-    inquirer
-        .prompt({
-            name: "itemId",
-            type: "input",
-            message: "What is the ID of the product you would like to buy? \n",
-            //message: "How many units of the product you would like to buy?"
-
-        })
-        .then(function (answer) {
-            var itemQuery = "SELECT items_id,product_name,price FROM products WHERE ?";
-            connection.query(itemQuery, { items_id: answer.itemId }, function (err, res) {
-                for (var i = 0; i < res.length; i++) {
-                    console.log("----------------BAMAZON-------------------");
-
-                    console.log("Buying:" + res[i].product_name + " at $" + res[i].price);
-                }
-                //runSearch();
-            });
-        });
-}
